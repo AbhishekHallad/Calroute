@@ -38,29 +38,21 @@ def call_gemini_for_place_type(task_text, home_address):
     model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
     response = model.generate_content(
-    f"""
+        f"""
 You are a helpful assistant for a personal productivity app. Your job is to assign a generic **place type** to user tasks.
 
 Task: "{task_text}"
 
 Rules:
-1. Always return a real-world **Google Maps place type** like "supermarket", "pharmacy", "gym", "cafe", etc.
-2. Do NOT return business names or addresses.
-3. Avoid vague answers like "store", "location", or "shop".
-4. If the task involves buying a single item (e.g., "milk", "toothbrush", "shampoo", "eggs"), prefer general-purpose stores like "supermarket", "pharmacy", or "department_store" over specialty stores.
-5. Use lowercase and underscores if needed (e.g., "movie_theater", "grocery_store").
-6. Be specific and practical based on how real people run errands.
-
-Examples:
-- "buy apples" → supermarket
-- "get eggs" → supermarket
-- "pick up toothbrush" → pharmacy
-- "buy headphones" → electronics_store
-- "get groceries" → supermarket
+1. Return a real-world **place type** like "movie_theater", "grocery_store", "pharmacy", "gym", "cafe", etc.
+2. Do NOT return business names or locations.
+3. Do NOT say "unknown", "location", "place", or similar.
+4. Use lowercase and underscores if needed.
+5. for watch movie suggest "movie_theater"
 
 Reply with only the place type.
 """
-)
+    )
             
     return response.text.strip().lower().replace(" ", "_")
 
@@ -110,9 +102,9 @@ def get_nearest_location_from_maps(home_address, task_text):
             return None
 
         places_result = gmaps.places_nearby(
-        location=latlng,
-        radius=5000,
-        type=mapped_type
+            location=latlng,
+            radius=5000,
+            type=mapped_type
         )
 
         results = places_result.get("results", [])
