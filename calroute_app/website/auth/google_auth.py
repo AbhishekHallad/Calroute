@@ -11,7 +11,7 @@ def login_google():
     return redirect(
         "https://accounts.google.com/o/oauth2/v2/auth"
         f"?client_id={os.getenv('GOOGLE_CLIENT_ID')}"
-        f"&redirect_uri=http://localhost:8888/login/google/callback"
+        f"&redirect_uri=https://calroute.online/login/google/callback"
         f"&response_type=code"
         f"&scope=openid%20profile%20email%20https://www.googleapis.com/auth/calendar.readonly"
     )
@@ -29,7 +29,7 @@ def callback_google():
             'code': code,
             'client_id': os.getenv('GOOGLE_CLIENT_ID'),
             'client_secret': os.getenv('GOOGLE_CLIENT_SECRET'),
-            'redirect_uri': 'http://localhost:8888/login/google/callback',
+            'redirect_uri': 'https://calroute.online/login/google/callback',
             'grant_type': 'authorization_code'
         }
     )

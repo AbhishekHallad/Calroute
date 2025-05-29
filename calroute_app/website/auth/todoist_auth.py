@@ -12,7 +12,7 @@ def login_todoist():
         f"https://todoist.com/oauth/authorize"
         f"?client_id={os.getenv('TODOIST_CLIENT_ID')}"
         f"&scope=data:read_write&state=xyz"
-        f"&redirect_uri=http://localhost:8888/login/todoist/callback"
+        f"&redirect_uri=https://calroute.online/login/todoist/callback"
     )
 
 @todoist_auth.route("/login/todoist/callback")
@@ -24,7 +24,7 @@ def callback_todoist():
             "client_id": os.getenv("TODOIST_CLIENT_ID"),
             "client_secret": os.getenv("TODOIST_CLIENT_SECRET"),
             "code": code,
-            "redirect_uri": "http://localhost:8888/login/todoist/callback"
+            "redirect_uri": "https://calroute.online/login/todoist/callback"
         }
     ).json().get("access_token")
 

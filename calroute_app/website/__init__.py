@@ -24,7 +24,7 @@ def create_app():
 
     # ✅ Enable CORS so frontend can access backend
     CORS(app, 
-         resources={r"/*": {"origins": ["http://localhost:8080"], 
+         resources={r"/*": {"origins": ["https://calroute.online"], 
                            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
                            "allow_headers": ["Content-Type", "Authorization"],
                            "supports_credentials": True}})
